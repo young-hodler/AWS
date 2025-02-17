@@ -17,18 +17,25 @@
  */
 
 /**
- * Where the interfaces for classes implemented in {@code o.a.h.fs.s3a.impl}
- * should go. This is to allow for extension points to use these interfaces
- * without having any java module access to the .impl package.
+ * Support for auditing and ultimately tracing operations.
+ * This is a public API for extension points, e.g. opentracing.
+ * However, it is very unstable as we evolve how best to audit/trace
+ * operation.
  *
- * This is public for S3A extension points, however there are no
- * guarantees of stability -changes may break things, possibly
- * unintentionally.
+ * An audit service is instantiated when an S3A Filesystem is initialized
+ * during creation.
+ * The choice of service is determined in the configuration option
+ * {@link org.apache.hadoop.fs.s3a.audit.S3AAuditConstants#AUDIT_SERVICE_CLASSNAME}.
+ * The service MUST implement the interface
+ * {@link org.apache.hadoop.fs.s3a.audit.OperationAuditor}
+ * to provide an {@link org.apache.hadoop.fs.store.audit.AuditSpan} whenever
+ * an operation is started through a public FileSystem API call
+ * (+some other operations).
  */
 
-@InterfaceAudience.LimitedPrivate("extensions")
+@InterfaceAudience.LimitedPrivate("S3A auditing extensions")
 @InterfaceStability.Unstable
-package org.apache.hadoop.fs.s3a.api;
+package org.apache.hadoop.fs.s3a.audit;
 
 import org.apache.hadoop.classification.InterfaceAudience;
 import org.apache.hadoop.classification.InterfaceStability;
