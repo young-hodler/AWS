@@ -17,15 +17,18 @@
  */
 
 /**
- * Adapter classes for allowing V1 credential providers to be used with SDKV2.
- * This is the only package where use of aws v1 classes are permitted;
- * all instantiations of objects here must use reflection to probe for
- * availability or be prepared to catch exceptions which may be raised
- * if the v1 SDK isn't found on the classpath
+ * Where the interfaces for classes implemented in {@code o.a.h.fs.s3a.impl}
+ * should go. This is to allow for extension points to use these interfaces
+ * without having any java module access to the .impl package.
+ *
+ * This is public for S3A extension points, however there are no
+ * guarantees of stability -changes may break things, possibly
+ * unintentionally.
  */
-@InterfaceAudience.Private
+
+@InterfaceAudience.LimitedPrivate("extensions")
 @InterfaceStability.Unstable
-package org.apache.hadoop.fs.s3a.adapter;
+package org.apache.hadoop.fs.s3a.api;
 
 import org.apache.hadoop.classification.InterfaceAudience;
 import org.apache.hadoop.classification.InterfaceStability;
